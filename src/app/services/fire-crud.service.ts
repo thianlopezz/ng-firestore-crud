@@ -13,6 +13,6 @@ export class FireCrudService {
   }
 
   public getClientes() {
-    return this.firestore.collection('clientes').snapshotChanges();
+    return this.firestore.collection('clientes').snapshotChanges()
   }
 }
