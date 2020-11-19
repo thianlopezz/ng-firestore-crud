@@ -15,4 +15,14 @@ export class FireCrudService {
   public getClientes() {
     return this.firestore.collection('clientes').snapshotChanges()
   }
+
+  public insertar_cliente(cliente) {
+    // cliente = {
+    //   nombre:'Cristhian',
+    //   usuario: 'thian',
+    //   correo: 'thian',
+    //   activo: true
+    // };
+    return this.firestore.collection('clientes').add(cliente);
+  }
 }
