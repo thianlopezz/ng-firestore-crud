@@ -25,4 +25,10 @@ export class FireCrudService {
     // };
     return this.firestore.collection('clientes').add(cliente);
   }
+
+  public update_cliente(cliente){
+    let _id = cliente.id;
+    delete cliente.id;
+    return this.firestore.collection('clientes').doc(_id).set(cliente);
+  }
 }

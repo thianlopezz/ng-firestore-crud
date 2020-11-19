@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
     this.getClientesRealTime();
 
     this.registerForm = this.formBuilder.group({
+      id: [''],
       nombre: ['', Validators.required],
       usuario: ['', Validators.required],
       correo: ['', [Validators.required, Validators.email]],
@@ -58,10 +59,13 @@ export class AppComponent implements OnInit {
   }
 
   guardarCliente() {
-    if (this.registerForm.valid) {
+    if (this.registerForm.valid) {    
 
       let cliente = this.registerForm.value;
-      cliente.activo = cliente.activo == 1 ? true:false;
+
+      if(!cliente.id) {
+
+      cliente.activo = cliente.activo == 1 ? true : false;
 
       this.fireCrud.insertar_cliente(cliente).then
         (data => {
@@ -73,8 +77,22 @@ export class AppComponent implements OnInit {
 
         }).catch(error => {
           console.log(error);
-        })
+        });
+
+      } else {
+        this.fireCrud.update_cliente(cliente).then(data=>{
+          console.log('Actualizado');
+          this.show = false;
+          this.registerForm.reset();
+        }).catch(error=> console.log(error));
+      }
     }
+  }
+
+  editar(cliente) {
+    debugger;
+    this.show = true;
+    this.registerForm.patchValue({ 'id': cliente.id, 'nombre': cliente.nombre, 'correo': cliente.correo, 'usuario': cliente.usuario, 'activo': cliente.activo ? '1' : '0' });
   }
 
 }
