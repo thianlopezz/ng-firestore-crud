@@ -10,6 +10,7 @@ export class AppComponent implements OnInit {
   title = 'ng-firebase';
 
   clientes: any = [];
+  show = false;
 
   constructor(private fireCrud: FireCrudService) {
 
@@ -43,6 +44,10 @@ export class AppComponent implements OnInit {
         this.clientes.push({ id: data.payload.doc.id, ...aux });
       });
     });
+  }
+
+  guardarCliente($form) {
+    console.log($form);
   }
 
 }
